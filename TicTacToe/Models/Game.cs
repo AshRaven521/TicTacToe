@@ -7,7 +7,7 @@ namespace TicTacToe.Models
         [Key] public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public Player Winner { get; set; }
+        public Player? Winner { get; set; }
         public bool Draw { get; set; }
         public bool Finished { get; set; }
         public Board ConfiguredBoard { get; set; }
