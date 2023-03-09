@@ -6,13 +6,13 @@ using TicTacToe.Models.UpdatedModels;
 
 namespace TicTacToe.Services
 {
-    public class GameService
+    public class GameService : IGameService
     {
         private readonly IMapper mapper;
         private readonly IBoardDealer _boardDealer;
         private readonly ITicTacToeDAL repository;
 
-        public GameService(IMapper mapper, IBoardDealer boardDealer, 
+        public GameService(IMapper mapper, IBoardDealer boardDealer,
                            ITicTacToeDAL repository)
         {
             this.mapper = mapper;
