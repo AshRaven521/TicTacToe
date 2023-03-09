@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.Data;
 using TicTacToe.DataAccessLayer;
+using TicTacToe.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(opt =>
                     opt.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
                     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddScoped<ITicTacToeDAL, TicTacToeDAL>();
 
 builder.Services.AddControllers();
