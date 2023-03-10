@@ -1,7 +1,10 @@
+using DrfLikePaginations;
 using Microsoft.EntityFrameworkCore;
+using TicTacToe.BusinessLogic;
 using TicTacToe.Data;
 using TicTacToe.DataAccessLayer;
 using TicTacToe.Mapping;
+using TicTacToe.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +15,15 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(opt =>
                     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
-builder.Services.AddScoped<ITicTacToeDAL, TicTacToeDAL>();
+
+builder.Services.AddScoped<IPlayerDAL, PlayerDAL>();
+builder.Services.AddScoped<IGameDAL, GameDAL>();
+builder.Services.AddScoped<IBoardDAL, BoardDAL>();
+
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IBoardDealer, BoardDealer>();
+builder.Services.AddScoped<IBoardJudge, BoardJudge>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,11 +31,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope())
-{
-    var dataContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dataContext.Database.Migrate();
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
