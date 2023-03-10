@@ -4,7 +4,7 @@ namespace TicTacToe.BusinessLogic
 {
     public interface IBoardDealer
     {
-        Movement CreateMovementForCustomPlayerOrComputer(Board board, int position, Player? player = null);
+        Movement CreateMovementForPlayer(Board board, int position, Player? player = null);
         BoardState EvaluateTheSituation(Board board, in int lastMovementPosition);
         bool NotValidOrUnsupportedBoardSize(string boardSize);
         Board PrepareBoardWithRequestSetup(string boardSize, Player playerOne, Player playerTwo);

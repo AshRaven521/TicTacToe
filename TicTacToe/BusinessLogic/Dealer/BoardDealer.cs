@@ -41,18 +41,16 @@ namespace TicTacToe.BusinessLogic
             return board;
         }
 
-        public Movement CreateMovementForCustomPlayerOrComputer(Board board, int position, Player? player = null)
+        public Movement CreateMovementForPlayer(Board board, int position, Player? player = null)
         {
             if (player is null)
             {
-                player = board.PlayerBoards.First(pb => !pb.Player.isNotComputer()).Player;
+                player = board.PlayerBoards.First().Player;
             }
 
             var (row, col) = boardJudge.GetRowAndColGivenAPosition(position, board);
 
             board.FieldsConfiguration[row][col] = player;
-            var movementWasRemoved = board.FreeFields.Remove(position);
-            Trace.Assert(movementWasRemoved is true);
 
             return new Movement { Position = position, WhoMade = player };
         }
@@ -67,11 +65,6 @@ namespace TicTacToe.BusinessLogic
             bool hasAWinner = wonHorizontally || wonVertically || wonDiagonally || wonReverseDiagonally;
             var fields = board.FieldsConfiguration;
             bool drawGame = boardJudge.DrawGame(fields);
-
-            var possibleConditionOne = hasAWinner is true && drawGame is false;
-            var possibleConditionTwo = hasAWinner is false && drawGame is true;
-            var possibleConditionThree = hasAWinner is false && drawGame is false;
-            Trace.Assert(possibleConditionOne || possibleConditionTwo || possibleConditionThree);
 
             return new BoardState(hasAWinner, drawGame);
         }

@@ -20,8 +20,7 @@ namespace TicTacToe.BusinessLogic
 
             var fields = gameConfiguredBoard.FieldsConfiguration;
             var playerUsedToEvaluate = fields[row].First();
-            Func<Player?, bool> predicate = p => p is not null && p.Equals(playerUsedToEvaluate);
-            var isPlayerPresentInAllHorizontalFields = fields[row].All(predicate);
+            bool isPlayerPresentInAllHorizontalFields = fields[row].All(p => p is not null && p.Equals(playerUsedToEvaluate));
 
             return isPlayerPresentInAllHorizontalFields;
         }
@@ -32,8 +31,8 @@ namespace TicTacToe.BusinessLogic
 
             var fields = gameConfiguredBoard.FieldsConfiguration;
             var playerUsedToEvaluate = fields[row][col];
-            Func<List<Player?>, bool> predicate = row => row[col] is not null && row[col].Equals(playerUsedToEvaluate);
-            var isPlayerPresentInAllVerticalFields = fields.All(predicate);
+            var isPlayerPresentInAllVerticalFields = fields.All(row => 
+                                                          row[col] is not null && row[col].Equals(playerUsedToEvaluate));
 
             return isPlayerPresentInAllVerticalFields;
         }
