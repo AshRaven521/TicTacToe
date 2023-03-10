@@ -6,19 +6,13 @@ namespace TicTacToe.Models
     public class Board
     {
         [Key] public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public List<Movement> Movements { get; set; }
         public List<PlayerBoard> PlayerBoards { get; set; }
         public int NumberOfColumn { get; set; }
         public int NumberOfRows { get; set; }
         [NotMapped] public List<List<Player?>> FieldsConfiguration { get; set; }
         [NotMapped] public List<int> FreeFields { get; set; }
-
-        public Player? GetRobotPlayer()
-        {
-            return PlayerBoards?.FirstOrDefault(pb => !pb.Player.isNotComputer())?.Player;
-        }
 
         public bool PositionIsNotAvailable(int movementPosition)
         {

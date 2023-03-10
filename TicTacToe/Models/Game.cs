@@ -5,8 +5,7 @@ namespace TicTacToe.Models
     public class Game
     {
         [Key] public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public Player? Winner { get; set; }
         public bool Draw { get; set; }
         public bool Finished { get; set; }
@@ -22,11 +21,6 @@ namespace TicTacToe.Models
             Finished = false;
             board.InitializeBoardConfiguration();
             ConfiguredBoard = board;
-        }
-
-        public bool IsFinished()
-        {
-            return Finished;
         }
     }
 }
