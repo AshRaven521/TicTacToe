@@ -14,4 +14,4 @@ To play a game you need(I do it with swagger):
 	This will be one step of one player, continue like this to play full game.
 		
 	Game will be finished after one player make line of 3 signs. 
-	You can understand this when you try to make a step and get 400 error game finished.
+	You can understand this when you try to make a step and get 400 error(game finished).
