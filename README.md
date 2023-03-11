@@ -6,6 +6,7 @@
 Start web api project(migrations will be done).
 
 To play a game you need(I do it with swagger):
+
 	1. Create player one. ``` /player/create-player ```, give id, name, playerBoards set to null("playerBoards" : null)
 	2. Create second player. The same as for first player, but give another id and name
 	3. Create board to play. ``` /board/create-board ``` give id's of first and second player and board size(for example 3x3)
