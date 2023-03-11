@@ -1,9 +1,5 @@
 ﻿using AutoMapper;
-using DrfLikePaginations;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TicTacToe.Data;
 using TicTacToe.DataAccessLayer;
 using TicTacToe.Models;
 using TicTacToe.Models.UpdatedModels;
@@ -15,27 +11,27 @@ namespace TicTacToe.Controllers
     public class PlayerController : ControllerBase
     {
         private readonly IMapper mapper;
-        private readonly ITicTacToeDAL ticTacToeDAL;
+        private readonly IPlayerDAL playerDAL;
 
-        public PlayerController(IMapper mapper, ITicTacToeDAL ticTacToeDAL)
+        public PlayerController(IMapper mapper, IPlayerDAL playerDAL)
         {
             this.mapper = mapper;
-            this.ticTacToeDAL = ticTacToeDAL;
+            this.playerDAL = playerDAL;
         }
 
         [HttpGet("get-players")]
         public async Task<IActionResult> GetAllPlayers()
         {
-            var players = await ticTacToeDAL.GetPlayers();
-            var newPlayers = mapper.Map<IEnumerable<Player>, IEnumerable<UpdatedPlayer>>(players);
+            var players = await playerDAL.GetPlayers();
+            var updatedPlayers = mapper.Map<IEnumerable<Player>, IEnumerable<UpdatedPlayer>>(players);
 
-            return Ok(newPlayers);
+            return Ok(updatedPlayers);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecificPlayer(int id)
         {
-            var player = await ticTacToeDAL.GetPlayerById(id);
+            var player = await playerDAL.GetPlayerById(id);
 
             if (player is null)
             {
@@ -53,21 +49,21 @@ namespace TicTacToe.Controllers
                 return BadRequest();
             }
 
-            var newPlayer = await ticTacToeDAL.CreatePlayer(player);
+            var newPlayer = await playerDAL.CreatePlayer(player);
             return Ok(newPlayer);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlayer(int id)
         {
-            var player = await ticTacToeDAL.GetPlayerById(id);
+            var player = await playerDAL.GetPlayerById(id);
 
             if (player is null)
             {
                 return NotFound();
             }
 
-            await ticTacToeDAL.DeletePlayer(player);
+            await playerDAL.DeletePlayer(player);
 
             return Ok();
         }
