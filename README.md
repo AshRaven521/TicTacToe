@@ -3,11 +3,14 @@
  
  First, you need  to start your MySQL server. Then you need to change connection string in ``` application.json ```
 
-Start web api project(migrations will be done).
+ Start web api project.
 
-To play a game you need(I do it with swagger):
+ Migrations will be done after first try of creating entity(for example player creating).
+ First time it will take more time than others.
 
-	1. Create player one.  /player/create-player give id, name, playerBoards set to null("playerBoards" : null)
+ To play a game you need(I do it with swagger):
+
+	1. Create first player.  /player/create-player give id, name, playerBoards set to null("playerBoards" : null)
 	2. Create second player. The same as for first player, but give another id and name
 	3. Create board to play. /board/create-board give id's of first and second player and board size(for example 3x3)
 	4. Let's play a game /game/play-game give boardId, playerId and position where you want to put your sign.
